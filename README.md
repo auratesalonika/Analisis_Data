@@ -1,7 +1,14 @@
-Analisis_Data
-==
-bike sharing dataset
-==
-*Berikut adalah pertanyaan yang jawabannya akan dianalisis dengan data*
-- Bagaimana pengaruh kondisi cuaca terhadap jumlah peminjaman sepeda harian?
-- Bagaimana pola penggunaan sepeda berdasarkan hari dalam seminggu?
+# Dashboard Analisis Penyewaan Sepeda 🚲
+Analisis ini menggunakan dataset penyewaan sepeda harian dan per jam untuk mengeksplorasi faktor-faktor yang mempengaruhi penyewaan sepeda.
+
+
+## Setup Environment - Anaconda
+```
+conda create --name main-ds python=3.9
+conda activate main-ds
+pip install -r requirements.txt
+```
+
+## Run steamlit app
+```
+streamlit run dashboard/dashboard.py
