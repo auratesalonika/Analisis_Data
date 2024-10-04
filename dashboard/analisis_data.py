@@ -76,3 +76,4 @@ elif option == "Pola Penggunaan Sepeda Berdasarkan Hari dalam Seminggu":
 # End of dashboard
 st.write("---")
 st.write("Terima kasih telah menjelajahi Analisis Peminjaman Sepeda!")
+st.write("Copyright @ Aura Tesalonika 2024")
