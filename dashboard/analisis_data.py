@@ -2,10 +2,13 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
 
-# Load dataset
+# Load dataset with dynamic path
 def load_data():
-    day_data = pd.read_csv('data/day.csv')
+    current_dir = os.path.dirname(os.path.abspath(__file__))  # Dapatkan path direktori file ini
+    data_path = os.path.join(current_dir, '..', 'data', 'day.csv')  # Path menuju folder 'data/day.csv'
+    day_data = pd.read_csv(data_path)  # Pastikan file berada di path tersebut
     return day_data
 
 day_data = load_data()
@@ -27,24 +30,22 @@ if option == "Pengaruh Cuaca terhadap Peminjaman Sepeda":
 
     # Boxplot Jumlah Peminjaman Berdasarkan Kondisi Cuaca
     st.subheader("Distribusi Jumlah Peminjaman Berdasarkan Kondisi Cuaca")
-    plt.figure(figsize=(10, 6))
-    sns.boxplot(x='weathersit', y='cnt', data=day_data)
-    plt.title('Distribusi Jumlah Peminjaman Sepeda Berdasarkan Kondisi Cuaca')
-    plt.xlabel('Kondisi Cuaca')
-    plt.ylabel('Jumlah Peminjaman')
-    plt.xticks([0, 1, 2, 3], ['Cerah', 'Bersalju', 'Hujan', 'Berawan'])
-    st.pyplot(plt)
-    plt.clf()  # Clear figure
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.boxplot(x='weathersit', y='cnt', data=day_data, ax=ax)
+    ax.set_title('Distribusi Jumlah Peminjaman Sepeda Berdasarkan Kondisi Cuaca')
+    ax.set_xlabel('Kondisi Cuaca')
+    ax.set_ylabel('Jumlah Peminjaman')
+    ax.set_xticklabels(['Cerah', 'Bersalju', 'Hujan', 'Berawan'])
+    st.pyplot(fig)
 
     # Scatter Plot Suhu vs. Jumlah Peminjaman
     st.subheader("Hubungan antara Suhu dan Jumlah Peminjaman Sepeda")
-    plt.figure(figsize=(10, 6))
-    sns.scatterplot(x='temp', y='cnt', data=day_data)
-    plt.title('Hubungan antara Suhu dan Jumlah Peminjaman Sepeda')
-    plt.xlabel('Suhu (Normalized)')
-    plt.ylabel('Jumlah Peminjaman')
-    st.pyplot(plt)
-    plt.clf()  # Clear figure
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.scatterplot(x='temp', y='cnt', data=day_data, ax=ax)
+    ax.set_title('Hubungan antara Suhu dan Jumlah Peminjaman Sepeda')
+    ax.set_xlabel('Suhu (Normalized)')
+    ax.set_ylabel('Jumlah Peminjaman')
+    st.pyplot(fig)
 
 # Pertanyaan 2: Bagaimana pola penggunaan sepeda berdasarkan hari dalam seminggu?
 elif option == "Pola Penggunaan Sepeda Berdasarkan Hari dalam Seminggu":
@@ -53,26 +54,24 @@ elif option == "Pola Penggunaan Sepeda Berdasarkan Hari dalam Seminggu":
 
     # Countplot Jumlah Peminjaman Berdasarkan Hari dalam Seminggu
     st.subheader("Jumlah Peminjaman Berdasarkan Hari dalam Seminggu")
-    plt.figure(figsize=(10, 6))
-    sns.countplot(x='weekday', data=day_data)
-    plt.title('Jumlah Peminjaman Sepeda Berdasarkan Hari dalam Seminggu')
-    plt.xlabel('Hari dalam Seminggu')
-    plt.ylabel('Jumlah Peminjaman')
-    plt.xticks([0, 1, 2, 3, 4, 5, 6], ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
-    st.pyplot(plt)
-    plt.clf()  # Clear figure
+    fig, ax = plt.subplots(figsize=(10, 6))
+    sns.countplot(x='weekday', data=day_data, ax=ax)
+    ax.set_title('Jumlah Peminjaman Sepeda Berdasarkan Hari dalam Seminggu')
+    ax.set_xlabel('Hari dalam Seminggu')
+    ax.set_ylabel('Jumlah Peminjaman')
+    ax.set_xticklabels(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
+    st.pyplot(fig)
 
     # Line Plot Rata-rata Peminjaman Berdasarkan Hari dalam Seminggu
     st.subheader("Rata-rata Peminjaman Berdasarkan Hari dalam Seminggu")
-    plt.figure(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(10, 6))
     average_per_day = day_data.groupby('weekday')['cnt'].mean().reset_index()
-    sns.lineplot(x='weekday', y='cnt', data=average_per_day)
-    plt.title('Rata-rata Peminjaman Sepeda Berdasarkan Hari dalam Seminggu')
-    plt.xlabel('Hari dalam Seminggu')
-    plt.ylabel('Rata-rata Jumlah Peminjaman')
-    plt.xticks([0, 1, 2, 3, 4, 5, 6], ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
-    st.pyplot(plt)
-    plt.clf()  # Clear figure
+    sns.lineplot(x='weekday', y='cnt', data=average_per_day, ax=ax)
+    ax.set_title('Rata-rata Peminjaman Sepeda Berdasarkan Hari dalam Seminggu')
+    ax.set_xlabel('Hari dalam Seminggu')
+    ax.set_ylabel('Rata-rata Jumlah Peminjaman')
+    ax.set_xticklabels(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'])
+    st.pyplot(fig)
 
 # End of dashboard
 st.write("---")
