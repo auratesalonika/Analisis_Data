@@ -1,4 +1,4 @@
-# Dashboard Analisis Penyewaan Sepeda 🚲
+# Dashboard Analisis Penyewaan Sepeda
 Analisis ini menggunakan dataset penyewaan sepeda harian dan per jam untuk mengeksplorasi faktor-faktor yang mempengaruhi penyewaan sepeda.
 
 
@@ -11,4 +11,4 @@ pip install -r requirements.txt
 
 ## Run steamlit app
 ```
-streamlit run dashboard/dashboard.py
+streamlit run dashboard/analisis_data.py
